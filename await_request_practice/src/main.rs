@@ -7,6 +7,7 @@ async fn main() -> Result<(), Option<Error>> {
     Ok(())
 }
 
+// awaitのほうがエラーハンドリングを手動で行う必要があります。これにより、コードがやや冗長になりますが、非同期処理の結果を詳細に制御することができます。
 async fn make_request(url: &str) -> Result<String, Option<Error>> {
     // HTTP GETリクエストを実行
     let response = reqwest::get(url).await?;
