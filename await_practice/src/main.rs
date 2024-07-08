@@ -1,10 +1,13 @@
+use std::error::Error;
+
 #[tokio::main]
-async fn main() {
-    // awaitは、非同期関数の結果を待つためのキーワードです。async関数やブロックから呼び出され、非同期で処理が完了するまで実行を停止します。これにより、他のタスクが並行して実行されることが可能になります。
-    let result = some_async_function().await;
-    println!("Result: {:?}", result);
+async fn main() -> Result<(), Box<dyn Error>> {
+    // 非同期関数の完了を待ちつつ、Result型のエラーハンドリングも行います。エラーが発生した場合には関数を終了し、エラーを呼び出し元に返します。
+    let result = some_async_function().await?;
+    println!("Result: {}", &result);
+    Ok(())
 }
 
-async fn some_async_function() -> u32 {
-    42
+async fn some_async_function() -> Result<u32, Box<dyn Error>> {
+    Ok(42)
 }
